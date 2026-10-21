@@ -1,0 +1,269 @@
+
+{
+  "works": [
+    {
+      "id": "the-hobbit",
+      "title": "The Hobbit",
+      "type": "book",
+      "year": 1937,
+      "creators": ["J.R.R. Tolkien"],
+      "topics": [
+        "journey-and-quest",
+        "ordinary-heroes",
+        "power-and-corruption"
+      ]
+    },
+    {
+      "id": "the-lord-of-the-rings",
+      "title": "The Lord of the Rings",
+      "type": "book",
+      "year": 1954,
+      "creators": ["J.R.R. Tolkien"],
+      "topics": [
+        "power-and-corruption",
+        "journey-and-quest",
+        "ordinary-heroes",
+        "friendship-and-loyalty"
+      ]
+    },
+    {
+      "id": "the-silmarillion",
+      "title": "The Silmarillion",
+      "type": "book",
+      "year": 1977,
+      "creators": ["J.R.R. Tolkien", "Christopher Tolkien"],
+      "topics": [
+        "creation-and-myth",
+        "fate-and-tragedy",
+        "mortality-and-loss",
+        "power-and-corruption"
+      ]
+    },
+    {
+      "id": "lotr-jackson-films",
+      "title": "The Lord of the Rings (film trilogy)",
+      "type": "film",
+      "year": 2001,
+      "creators": ["Peter Jackson"],
+      "topics": [
+        "friendship-and-loyalty",
+        "war-and-sacrifice",
+        "ordinary-heroes"
+      ]
+    },
+    {
+      "id": "lotr-bakshi-film",
+      "title": "The Lord of the Rings (1978 animated film)",
+      "type": "film",
+      "year": 1978,
+      "creators": ["Ralph Bakshi"],
+      "topics": [
+        "journey-and-quest",
+        "ordinary-heroes"
+      ]
+    },
+    {
+      "id": "shadow-of-mordor",
+      "title": "Middle-earth: Shadow of Mordor",
+      "type": "video_game",
+      "year": 2014,
+      "creators": ["Monolith Productions"],
+      "topics": [
+        "power-and-corruption",
+        "mortality-and-loss"
+      ]
+    },
+    {
+      "id": "lotro",
+      "title": "The Lord of the Rings Online",
+      "type": "video_game",
+      "year": 2007,
+      "creators": ["Turbine"],
+      "topics": [
+        "journey-and-quest",
+        "friendship-and-loyalty"
+      ]
+    },
+    {
+      "id": "fellowship-soundtrack",
+      "title": "The Fellowship of the Ring: Original Motion Picture Soundtrack",
+      "type": "music",
+      "year": 2001,
+      "creators": ["Howard Shore"],
+      "topics": [
+        "journey-and-quest",
+        "song-and-poetry"
+      ]
+    },
+    {
+      "id": "led-zeppelin-iv",
+      "title": "Led Zeppelin IV",
+      "type": "music",
+      "year": 1971,
+      "creators": ["Led Zeppelin"],
+      "topics": [
+        "war-and-sacrifice",
+        "power-and-corruption"
+      ]
+    },
+    {
+      "id": "road-goes-ever-on",
+      "title": "The Road Goes Ever On",
+      "type": "music",
+      "year": 1967,
+      "creators": ["Donald Swann", "J.R.R. Tolkien"],
+      "topics": [
+        "song-and-poetry",
+        "journey-and-quest"
+      ]
+    },
+    {
+      "id": "elden-ring",
+      "title": "Elden Ring",
+      "type": "video_game",
+      "year": 2022,
+      "creators": [
+        "FromSoftware",
+        "Hidetaka Miyazaki",
+        "George R.R. Martin"
+      ],
+      "topics": [
+        "power-and-corruption",
+        "fate-and-tragedy",
+        "creation-and-myth"
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "id": "journey-and-quest",
+      "name": "Journey and quest",
+      "description": "A character or group travels toward a goal, and the road changes them."
+    },
+    {
+      "id": "ordinary-heroes",
+      "name": "Ordinary heroes",
+      "description": "Small, unlikely people carry the weight of events much bigger than them."
+    },
+    {
+      "id": "power-and-corruption",
+      "name": "Power and corruption",
+      "description": "The desire for power, or power itself, twists those who seek or hold it."
+    },
+    {
+      "id": "friendship-and-loyalty",
+      "name": "Friendship and loyalty",
+      "description": "Bonds between companions that hold under pressure and drive the story."
+    },
+    {
+      "id": "creation-and-myth",
+      "name": "Creation and myth",
+      "description": "The world is shaped by a founding story of gods, origins and ancient events."
+    },
+    {
+      "id": "fate-and-tragedy",
+      "name": "Fate and tragedy",
+      "description": "Characters move toward a doom they cannot escape, even by trying."
+    },
+    {
+      "id": "mortality-and-loss",
+      "name": "Mortality and loss",
+      "description": "Death, the passing of time and what is lost along the way."
+    },
+    {
+      "id": "war-and-sacrifice",
+      "name": "War and sacrifice",
+      "description": "Large conflicts that demand a personal cost from those who fight."
+    },
+    {
+      "id": "song-and-poetry",
+      "name": "Song and poetry",
+      "description": "Verse and music inside the story, or the story told through song."
+    },
+    {
+      "id": "nature-and-industry",
+      "name": "Nature and industry",
+      "description": "Living landscapes threatened by machines, forges and the will to dominate."
+    }
+  ],
+  "relations": [
+    {
+      "source": "lotr-jackson-films",
+      "target": "the-lord-of-the-rings",
+      "type": "adapts",
+      "explanation": "Jackson follows the novel's structure closely but cuts Tom Bombadil and the Scouring of the Shire, and gives much more screen time to the Aragorn and Arwen romance, which the book keeps mostly in the appendices."
+    },
+    {
+      "source": "lotr-bakshi-film",
+      "target": "the-lord-of-the-rings",
+      "type": "adapts",
+      "explanation": "An animated version made with rotoscoping, drawn over live-action footage. It covers only the first half of the story, ending after the battle at Helm's Deep, so it was never a complete adaptation."
+    },
+    {
+      "source": "fellowship-soundtrack",
+      "target": "lotr-jackson-films",
+      "type": "soundtrack_of",
+      "explanation": "Howard Shore's score for the first film builds recurring themes for the Shire, the Fellowship and the Ring, and these themes return and change across the whole trilogy."
+    },
+    {
+      "source": "road-goes-ever-on",
+      "target": "the-lord-of-the-rings",
+      "type": "adapts",
+      "explanation": "Donald Swann set Tolkien's poems, mostly from the novel, to music as a song cycle, working with Tolkien. It is the book's own verse, turned into songs."
+    },
+    {
+      "source": "the-hobbit",
+      "target": "the-lord-of-the-rings",
+      "type": "prequel_of",
+      "explanation": "The Hobbit is set about sixty years before the events of the novel and introduces Bilbo, Gollum and the Ring. Tolkien rewrote the Gollum chapter after starting the sequel, so the Ring became dangerous instead of a simple magic trinket."
+    },
+    {
+      "source": "the-silmarillion",
+      "target": "the-lord-of-the-rings",
+      "type": "prequel_of",
+      "explanation": "It tells the ancient history behind the novel: Morgoth, the origin of Sauron as his servant, and the Elves' exile. The love of Beren and Luthien is echoed in Aragorn and Arwen."
+    },
+    {
+      "source": "shadow-of-mordor",
+      "target": "the-lord-of-the-rings",
+      "type": "set_in_world_of",
+      "explanation": "The game tells an original story between The Hobbit and the novel, set in Mordor. It uses the world, Sauron's return and the orc armies, but its hero Talion is invented for the game."
+    },
+    {
+      "source": "lotro",
+      "target": "the-lord-of-the-rings",
+      "type": "set_in_world_of",
+      "explanation": "An online game that lets players walk through Tolkien's places, such as Bree, Rivendell and Moria, alongside the Fellowship's journey. The story mostly follows the book's timeline, with players as side characters."
+    },
+    {
+      "source": "led-zeppelin-iv",
+      "target": "the-lord-of-the-rings",
+      "type": "inspired_by",
+      "explanation": "The Battle of Evermore refers to the Ringwraiths and a battle between light and dark. Robert Plant has spoken openly about reading Tolkien."
+    },
+    {
+      "source": "shadow-of-mordor",
+      "target": "the-silmarillion",
+      "type": "inspired_by",
+      "explanation": "The game's central figure, the spirit bound to Talion, is Celebrimbor, the elf-smith who forged the Rings of Power. This comes from the last chapter of The Silmarillion, not from the novel."
+    },
+    {
+      "source": "the-silmarillion",
+      "target": "the-lord-of-the-rings",
+      "type": "shared_theme",
+      "explanation": "Both set living nature against industrial power. Melkor's forges and fortresses in the old tales are echoed by Saruman, who cuts down the trees of Fangorn to feed the fires of Isengard."
+    },
+    {
+      "source": "elden-ring",
+      "target": "the-silmarillion",
+      "type": "shared_theme",
+      "explanation": "Both present the world as the ruin left after a mythic fall: Elden Ring's Shattering and its quarrelling demigods, The Silmarillion's lost Silmarils and the Noldor's doomed rebellion. Neither story is about a hero building something new."
+    },
+    {
+      "source": "elden-ring",
+      "target": "the-lord-of-the-rings",
+      "type": "shared_theme",
+      "explanation": "Both are built on an object of power that corrupts those who want it: the One Ring in the novel, the Great Runes and the Elden Ring in the game. The demigods in Elden Ring are damaged by their shards in a way close to how the Ring corrupts."
+    }
+  ]
+}
