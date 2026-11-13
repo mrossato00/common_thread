@@ -42,4 +42,4 @@ CREATE TABLE relations (
     type        TEXT NOT NULL,
     explanation TEXT NOT NULL,
     CHECK (source_id != target_id)
-)
+);
