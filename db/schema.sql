@@ -11,7 +11,7 @@ CREATE TABLE works (
     id      INTEGER PRIMARY KEY,
     slug    TEXT NOT NULL UNIQUE,
     title   TEXT NOT NULL,
-    type    TEXT NOT NULL CHECK (type IN ('book','film','game','music')),
+    type    TEXT NOT NULL CHECK (type IN ('book','film','tv_show','video_game','music')),
     year    INTEGER,
     summary TEXT
 );
