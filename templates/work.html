@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ work.title }} · Common Thread</title>
+</head>
+<body>
+  <p><a href="{{ url_for('index') }}">← All works</a></p>
+
+  <h1>{{ work.title }}</h1>
+  <p>{{ work.type }}, {{ work.year }}</p>
+
+  <h2>Topics</h2>
+  <ul>
+    {% for t in topics %}
+      <li>{{ t.name }}</li>
+    {% endfor %}
+  </ul>
+
+  <h2>Relations</h2>
+  {% for r in relations %}
+    <p>
+      <a href="{{ url_for('work', slug=r.partenza_slug) }}">{{ r.partenza }}</a>
+      {{ r.type }}
+      <a href="{{ url_for('work', slug=r.arrivo_slug) }}">{{ r.arrivo }}</a><br>
+      {{ r.explanation }}
+    </p>
+  {% endfor %}
+</body>
+</html>

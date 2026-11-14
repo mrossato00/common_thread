@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 
 ROOT = Path(__file__).resolve().parent
 DB_PATH = ROOT / "data" / "common_thread.db"
@@ -23,3 +23,46 @@ def index():
     ).fetchall()
     conn.close()
     return render_template("index.html", works=works)
+
+
+@app.route("/work/<slug>")
+def work(slug):
+    conn = get_db()
+
+    w = conn.execute(
+        "SELECT id, slug, title, type, year FROM works WHERE slug = ?",
+        (slug,),
+    ).fetchone()
+
+    if w is None:
+        conn.close()
+        abort(404)
+
+    topics = conn.execute(
+        """
+        SELECT t.name
+        FROM works w
+        JOIN work_topics wt ON wt.work_id = w.id
+        JOIN topics t ON t.id = wt.topic_id
+        WHERE w.slug = ?
+        """,
+        (slug,),
+    ).fetchall()
+
+    relations = conn.execute(
+        """
+        SELECT s.title AS partenza, s.slug AS partenza_slug,
+               r.type,
+               tg.title AS arrivo, tg.slug AS arrivo_slug,
+               r.explanation
+        FROM relations r
+        JOIN works s  ON s.id  = r.source_id
+        JOIN works tg ON tg.id = r.target_id
+        WHERE s.slug = ?
+           OR tg.slug = ?
+        """,
+        (slug, slug),
+    ).fetchall()
+
+    conn.close()
+    return render_template("work.html", work=w, topics=topics, relations=relations)
