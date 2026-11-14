@@ -30,3 +30,26 @@ def test_search_no_results(client):
     response = client.get("/?q=xyz")
     assert response.status_code == 200
     assert b"No works found." in response.data
+
+
+def test_topic_page_lists_works(client):
+    response = client.get("/topic/power-and-corruption")
+    assert response.status_code == 200
+    assert b"The Lord of the Rings" in response.data
+
+
+def test_unknown_topic_is_404(client):
+    response = client.get("/topic/inesistente")
+    assert response.status_code == 404
+
+
+def test_search_by_title(client):
+    response = client.get("/?q=lord")
+    assert response.status_code == 200
+    assert b"The Lord of the Rings" in response.data
+
+
+def test_search_by_type(client):
+    response = client.get("/?q=book")
+    assert response.status_code == 200
+    assert b"The Hobbit" in response.data
