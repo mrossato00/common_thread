@@ -90,3 +90,67 @@ main {
   font-size: 0.85rem;
   opacity: 0.7;
 }
+
+/* ---------- Grafo ---------- */
+#graph {
+  height: 80vh;
+  min-height: 520px;
+  width: min(96vw, 90rem);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid var(--sage);
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* ---------- Tooltip del grafo ---------- */
+div.vis-tooltip {
+  white-space: normal !important;
+  max-width: 20rem;
+  padding: 0.6rem 0.8rem !important;
+  background: var(--ivory) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--sage) !important;
+  border-radius: 6px;
+  font-family: -apple-system, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 0.85rem !important;
+  line-height: 1.4;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+div.vis-tooltip strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--forest);
+}
+
+div.vis-tooltip .tip-sub {
+  margin-bottom: 0.4rem;
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+/* ---------- Legenda del grafo ---------- */
+#legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 1rem 0 2rem;
+  font-size: 0.9rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-transform: capitalize;
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 4px;
+}

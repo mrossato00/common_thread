@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Explore · Common Thread{% endblock %}
+
+{% block content %}
+  <h1>Explore</h1>
+  <p>Click a work to see how it connects, double-click to open it. Hover a work or an arrow for details.</p>
+
+  <div id="graph"></div>
+  <div id="legend"></div>
+
+  <script src="https://unpkg.com/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+  <script>
+    // colore di sfondo e colore del testo per ogni tipo di opera
+    const STYLES = {
+      book:       { bg: "#2f4a3a", text: "#f7f3e9" },
+      film:       { bg: "#c0643f", text: "#ffffff" },
+      tv_show:    { bg: "#a9b8a0", text: "#2a2a26" },
+      video_game: { bg: "#6b5b95", text: "#ffffff" },
+      music:      { bg: "#d9a441", text: "#2a2a26" },
+    };
+
+    // come si legge ogni tipo di relazione in una frase (sorgente → target)
+    const PHRASES = {
+      adapts: "adapts",
+      prequel_of: "is a prequel of",
+      part_of: "is part of",
+      set_in_world_of: "is set in the world of",
+      soundtrack_of: "is the soundtrack of",
+      inspired_by: "is inspired by",
+      shared_theme: "shares themes with",
+    };
+
+    const pretty = (s) => s.replace(/_/g, " ");
+    const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+    const phrase = (t) => PHRASES[t] || pretty(t);
+
+    // accorcia i titoli lunghi: il titolo completo resta nel tooltip
+    const short = (t, n = 26) => (t.length > n ? t.slice(0, n - 1) + "…" : t);
+
+    // tooltip compatto: titolo in grassetto, riga piccola opzionale, poi il testo
+    const tip = (heading, body, sub) => {
+      const el = document.createElement("div");
+
+      const h = document.createElement("strong");
+      h.textContent = heading;
+      el.appendChild(h);
+
+      if (sub) {
+        const s = document.createElement("div");
+        s.className = "tip-sub";
+        s.textContent = sub;
+        el.appendChild(s);
+      }
+
+      if (body) {
+        const p = document.createElement("div");
+        p.textContent = body;
+        el.appendChild(p);
+      }
+      return el;
+    };
+
+    // legenda: un'etichetta colorata per ogni tipo, presa da STYLES
+    const legend = document.getElementById("legend");
+    Object.entries(STYLES).forEach(([type, s]) => {
+      const item = document.createElement("span");
+      item.className = "legend-item";
+
+      const dot = document.createElement("span");
+      dot.className = "legend-dot";
+      dot.style.background = s.bg;
+
+      item.appendChild(dot);
+      item.appendChild(document.createTextNode(pretty(type)));
+      legend.appendChild(item);
+    });
+
+    fetch("{{ url_for('api_graph') }}")
+      .then((res) => res.json())
+      .then((data) => {
+        // slug -> opera, per ritrovare titolo e tipo di sorgente e target
+        const bySlug = {};
+        data.nodes.forEach((w) => { bySlug[w.slug] = w; });
+        const nameOf = (slug) => {
+          const w = bySlug[slug];
+          return w ? w.title + " (" + pretty(w.type) + ")" : slug;
+        };
+
+        const nodes = new vis.DataSet(
+          data.nodes.map((w) => {
+            const style = STYLES[w.type] || { bg: "#999999", text: "#ffffff" };
+            return {
+              id: w.slug,
+              label: short(w.title),
+              title: tip(w.title, cap(pretty(w.type))),
+              color: style.bg,
+              font: { color: style.text },
+            };
+          })
+        );
+
+        const edges = new vis.DataSet(
+          data.edges.map((r) => ({
+            from: r.source,
+            to: r.target,
+            label: "",
+            fullLabel: pretty(r.type),
+            title: tip(
+              cap(pretty(r.type)),
+              r.explanation,
+              nameOf(r.source) + " " + phrase(r.type) + " " + nameOf(r.target)
+            ),
+          }))
+        );
+
+        const options = {
+          nodes: {
+            shape: "box",
+            margin: 6,
+            borderWidth: 0,
+            shapeProperties: { borderRadius: 12 },
+            font: { size: 12 },
+          },
+          edges: {
+            color: { color: "#b9bfb2", highlight: "#2f4a3a" },
+            width: 1,
+            arrows: { to: { scaleFactor: 0.6 } },
+            smooth: { type: "continuous" },
+            font: {
+              size: 11,
+              color: "#2a2a26",
+              strokeWidth: 4,
+              strokeColor: "#ffffff",
+              align: "middle",
+            },
+          },
+          interaction: { hover: true, tooltipDelay: 150 },
+          physics: {
+            barnesHut: {
+              gravitationalConstant: -14000,
+              springLength: 200,
+              springConstant: 0.03,
+              avoidOverlap: 0.6,
+            },
+            stabilization: { iterations: 200 },
+          },
+        };
+
+        const network = new vis.Network(
+          document.getElementById("graph"),
+          { nodes, edges },
+          options
+        );
+
+        // al click su un'opera, mostra il tipo di relazione solo sui suoi archi
+        network.on("click", (params) => {
+          const connected = new Set(
+            params.nodes.length ? network.getConnectedEdges(params.nodes[0]) : []
+          );
+          edges.update(
+            edges.get().map((e) => ({
+              id: e.id,
+              label: connected.has(e.id) ? e.fullLabel : "",
+            }))
+          );
+        });
+
+        network.on("doubleClick", (params) => {
+          if (params.nodes.length) {
+            window.location.href = "/work/" + params.nodes[0];
+          }
+        });
+      });
+  </script>
+{% endblock %}
