@@ -1,15 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Common Thread</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Common Thread{% endblock %}
+
+{% block content %}
   <h1>Common Thread</h1>
   <ul>
     {% for w in works %}
-      <li><a href="{{ url_for('work', slug=w.slug) }}">{{ w.title }}</a> ({{ w.type }}, {{ w.year }})</li>
+      <li>
+        <a href="{{ url_for('work', slug=w.slug) }}">{{ w.title }}</a>
+        ({{ w.type }}, {{ w.year }})
+      </li>
     {% endfor %}
   </ul>
-</body>
-</html>
+{% endblock %}

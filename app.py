@@ -71,18 +71,19 @@ def work(slug):
 #tutte_le_opere_con_un_certo_titolo
 @app.route("/topic/<name>")
 def topic(name):
+    """Pagina di un tema: tutte le opere che lo hanno (query 2)."""
     conn = get_db()
 
     works = conn.execute(
         """
-        SELECT w.title, w.type
+        SELECT w.slug, w.title, w.type, w.year
         FROM works w
         JOIN work_topics wt ON wt.work_id = w.id
         JOIN topics t ON t.id = wt.topic_id
         WHERE t.name = ?
         ORDER BY w.year
         """,
-        (______,),
+        (name,),
     ).fetchall()
 
     conn.close()

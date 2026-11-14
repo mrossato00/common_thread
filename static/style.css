@@ -1,0 +1,50 @@
+/* ---------- Palette ---------- */
+:root {
+  --ivory: #f7f3e9;
+  --forest: #2f4a3a;
+  --sage: #a9b8a0;
+  --terracotta: #c0643f;
+  --ink: #2a2a26;
+}
+
+/* ---------- Base ---------- */
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+h1, h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--forest);
+  line-height: 1.2;
+}
+
+a {
+  color: var(--terracotta);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Struttura ---------- */
+header {
+  background: var(--forest);
+  padding: 1rem 2rem;
+}
+
+header a {
+  color: var(--ivory);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.4rem;
+}
+
+main {
+  max-width: 42rem;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}

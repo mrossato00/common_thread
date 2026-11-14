@@ -19,7 +19,7 @@
   {% for r in relations %}
     <p>
       <a href="{{ url_for('work', slug=r.partenza_slug) }}">{{ r.partenza }}</a>
-      {{ r.type }}
+      <em>{{ r.type|replace("_", " ") }}</em>
       <a href="{{ url_for('work', slug=r.arrivo_slug) }}">{{ r.arrivo }}</a><br>
       {{ r.explanation }}
     </p>
