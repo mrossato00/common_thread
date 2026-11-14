@@ -66,3 +66,28 @@ def work(slug):
 
     conn.close()
     return render_template("work.html", work=w, topics=topics, relations=relations)
+
+
+#tutte_le_opere_con_un_certo_titolo
+@app.route("/topic/<name>")
+def topic(name):
+    conn = get_db()
+
+    works = conn.execute(
+        """
+        SELECT w.title, w.type
+        FROM works w
+        JOIN work_topics wt ON wt.work_id = w.id
+        JOIN topics t ON t.id = wt.topic_id
+        WHERE t.name = ?
+        ORDER BY w.year
+        """,
+        (______,),
+    ).fetchall()
+
+    conn.close()
+
+    if not works:
+        abort(404)
+
+    return render_template("topic.html", name=name, works=works)

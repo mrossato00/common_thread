@@ -1,10 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>{{ work.title }} · Common Thread</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}{{ work.title }} · Common Thread{% endblock %}
+
+{% block content %}
   <p><a href="{{ url_for('index') }}">← All works</a></p>
 
   <h1>{{ work.title }}</h1>
@@ -13,7 +11,7 @@
   <h2>Topics</h2>
   <ul>
     {% for t in topics %}
-      <li>{{ t.name }}</li>
+      <li><a href="{{ url_for('topic', name=t.name) }}">{{ t.name }}</a></li>
     {% endfor %}
   </ul>
 
@@ -26,5 +24,4 @@
       {{ r.explanation }}
     </p>
   {% endfor %}
-</body>
-</html>
+{% endblock %}
