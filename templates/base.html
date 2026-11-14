@@ -8,7 +8,20 @@
 </head>
 <body>
   <header>
-    <a href="{{ url_for('index') }}">Common Thread</a>
+    <a class="brand" href="{{ url_for('index') }}">Common Thread</a>
+
+    <nav>
+      {% for t in nav_types %}
+        <a href="{{ url_for('index', type=t.type) }}"
+           {% if request.endpoint == 'index' and request.args.get('type') == t.type %}class="active"{% endif %}>
+          {{ t.type|replace("_", " ") }}
+        </a>
+      {% endfor %}
+    </nav>
+
+    <form method="get" action="{{ url_for('index') }}">
+      <input type="search" name="q" value="{{ request.args.get('q', '') }}" placeholder="Search by title or type">
+    </form>
   </header>
 
   <main>

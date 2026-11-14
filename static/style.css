@@ -31,18 +31,55 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ---------- Struttura ---------- */
+/* ---------- Header ---------- */
 header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
   background: var(--forest);
   padding: 1rem 2rem;
 }
 
-header a {
+header .brand {
   color: var(--ivory);
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1.4rem;
 }
 
+header nav {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+header nav a {
+  color: var(--sage);
+  font-size: 0.95rem;
+  text-transform: capitalize;
+}
+
+header nav a:hover,
+header nav a.active {
+  color: var(--ivory);
+  text-decoration: underline;
+}
+
+header form {
+  margin: 0;
+}
+
+header input[type="search"] {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--sage);
+  border-radius: 999px;
+  background: var(--ivory);
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+/* ---------- Contenuto ---------- */
 main {
   max-width: 42rem;
   margin: 2rem auto;

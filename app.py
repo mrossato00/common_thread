@@ -1,6 +1,6 @@
 import sqlite3
 from pathlib import Path
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, request
 
 ROOT = Path(__file__).resolve().parent
 DB_PATH = ROOT / "data" / "common_thread.db"
@@ -15,14 +15,36 @@ def get_db():
     return conn
 
 
+#in modo da cercare le opere per tipo direttamente dalla barra di ricerca
+def inject_nav_types():
+    """Rende disponibili in ogni template i tipi di opera per il menu nell'header."""
+    conn = get_db()
+    rows = conn.execute("SELECT DISTINCT type FROM works ORDER BY type").fetchall()
+    conn.close()
+    return {"nav_types": rows}
+
+
+#barra_di_ricerca
 @app.route("/")
 def index():
+    """Home: elenco delle opere, con ricerca per titolo o tipo e filtro per tipo."""
+    q = request.args.get("q", "").strip()
+    type_filter = request.args.get("type", "")
+
     conn = get_db()
     works = conn.execute(
-        "SELECT slug, title, type, year FROM works ORDER BY title"
+        """
+        SELECT slug, title, type, year
+        FROM works
+        WHERE (? = '' OR title LIKE ? OR REPLACE(type, '_', ' ') LIKE ?)
+          AND (? = '' OR type = ?)
+        ORDER BY title
+        """,
+        (q, f"%{q}%", f"%{q}%", type_filter, type_filter),
     ).fetchall()
     conn.close()
-    return render_template("index.html", works=works)
+
+    return render_template("index.html", works=works, q=q)
 
 
 @app.route("/work/<slug>")
