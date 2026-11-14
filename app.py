@@ -16,6 +16,7 @@ def get_db():
 
 
 #in modo da cercare le opere per tipo direttamente dalla barra di ricerca
+@app.context_processor
 def inject_nav_types():
     """Rende disponibili in ogni template i tipi di opera per il menu nell'header."""
     conn = get_db()
