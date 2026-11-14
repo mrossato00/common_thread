@@ -1,6 +1,7 @@
 import sqlite3
 from pathlib import Path
 from flask import Flask, render_template, abort, request
+from similarity import similar_works
 
 ROOT = Path(__file__).resolve().parent
 DB_PATH = ROOT / "data" / "common_thread.db"
@@ -50,6 +51,7 @@ def index():
 
 @app.route("/work/<slug>")
 def work(slug):
+    """Pagina di un'opera: temi (query 1), relazioni (query 3) e opere simili."""
     conn = get_db()
 
     w = conn.execute(
@@ -87,9 +89,12 @@ def work(slug):
         (slug, slug),
     ).fetchall()
 
-    conn.close()
-    return render_template("work.html", work=w, topics=topics, relations=relations)
+    similar = similar_works(conn, slug)
 
+    conn.close()
+    return render_template(
+        "work.html", work=w, topics=topics, relations=relations, similar=similar
+    )
 
 #tutte_le_opere_con_un_certo_titolo
 @app.route("/topic/<name>")

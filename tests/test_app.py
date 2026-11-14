@@ -53,3 +53,8 @@ def test_search_by_type(client):
     response = client.get("/?q=book")
     assert response.status_code == 200
     assert b"The Hobbit" in response.data
+
+def test_work_page_shows_similar_works(client):
+    response = client.get("/work/the-hobbit")
+    assert response.status_code == 200
+    assert b"Similar works" in response.data

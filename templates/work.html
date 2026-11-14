@@ -6,7 +6,7 @@
   <p><a href="{{ url_for('index') }}">← All works</a></p>
 
   <h1>{{ work.title }}</h1>
-  <p>{{ work.type }}, {{ work.year }}</p>
+  <p>{{ work.type|replace("_", " ") }}, {{ work.year }}</p>
 
   <h2>Topics</h2>
   <ul>
@@ -24,4 +24,16 @@
       {{ r.explanation }}
     </p>
   {% endfor %}
+
+  <h2>Similar works</h2>
+  <ul>
+    {% for other_slug, title, score in similar %}
+      <li>
+        <a href="{{ url_for('work', slug=other_slug) }}">{{ title }}</a>
+        <span class="score">{{ (score * 100)|round|int }}% topic overlap</span>
+      </li>
+    {% else %}
+      <li>No similar works yet.</li>
+    {% endfor %}
+  </ul>
 {% endblock %}
