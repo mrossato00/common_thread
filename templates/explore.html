@@ -153,17 +153,19 @@
           options
         );
 
-        // al click su un'opera, mostra il tipo di relazione solo sui suoi archi
-        network.on("click", (params) => {
-          const connected = new Set(
-            params.nodes.length ? network.getConnectedEdges(params.nodes[0]) : []
-          );
+        // mostra il tipo di relazione solo sugli archi dell'opera indicata
+        const highlight = (nodeId) => {
+          const connected = new Set(nodeId ? network.getConnectedEdges(nodeId) : []);
           edges.update(
             edges.get().map((e) => ({
               id: e.id,
               label: connected.has(e.id) ? e.fullLabel : "",
             }))
           );
+        };
+
+        network.on("click", (params) => {
+          highlight(params.nodes.length ? params.nodes[0] : null);
         });
 
         network.on("doubleClick", (params) => {
@@ -171,6 +173,16 @@
             window.location.href = "/work/" + params.nodes[0];
           }
         });
+
+        // se arrivi da una pagina opera (?focus=slug), centra il grafo su di lei
+        const focus = new URLSearchParams(window.location.search).get("focus");
+        if (focus && nodes.get(focus)) {
+          network.once("stabilizationIterationsDone", () => {
+            network.selectNodes([focus]);
+            network.focus(focus, { scale: 1.1, animation: true });
+            highlight(focus);
+          });
+        }
       });
   </script>
 {% endblock %}

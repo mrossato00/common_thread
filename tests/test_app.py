@@ -63,3 +63,8 @@ def test_work_page_shows_similar_works(client):
 def test_home_links_to_explore(client):
     response = client.get("/")
     assert b'href="/explore"' in response.data
+
+
+def test_work_page_links_to_graph(client):
+    response = client.get("/work/the-hobbit")
+    assert b"/explore?focus=the-hobbit" in response.data
