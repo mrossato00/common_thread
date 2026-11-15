@@ -19,9 +19,13 @@
       {% endfor %}
     </nav>
 
-    <form method="get" action="{{ url_for('index') }}">
-      <input type="search" name="q" value="{{ request.args.get('q', '') }}" placeholder="Search by title or type">
-    </form>
+    <div class="header-right">
+      <a class="explore-link{% if request.endpoint == 'explore' %} active{% endif %}"
+         href="{{ url_for('explore') }}">Explore</a>
+      <form method="get" action="{{ url_for('index') }}">
+        <input type="search" name="q" value="{{ request.args.get('q', '') }}" placeholder="Search by title or type">
+      </form>
+    </div>
   </header>
 
   <main>

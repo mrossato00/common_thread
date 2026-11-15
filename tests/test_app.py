@@ -58,3 +58,8 @@ def test_work_page_shows_similar_works(client):
     response = client.get("/work/the-hobbit")
     assert response.status_code == 200
     assert b"Similar works" in response.data
+
+
+def test_home_links_to_explore(client):
+    response = client.get("/")
+    assert b'href="/explore"' in response.data
